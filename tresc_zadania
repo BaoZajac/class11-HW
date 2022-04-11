@@ -1,4 +1,6 @@
+-------------------------------------------------
 Rozszerzenie programu do zarządzania plikami csv
+-------------------------------------------------
 
 W przypadku formatu pickle, json,
 pliki zapisywane są jako listy list
