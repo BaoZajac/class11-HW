@@ -26,13 +26,12 @@ else:
     if ext_new == ".csv":
         CSVFile(file_old, file_new).save_file()         # +
     elif ext_new == ".json":
-        ...
+        JSONFile(file_old, file_new).save_file()        # TODO: nie wczytuje danych z wczytanego i zmodyfikowanego pliku
     elif ext_new == ".pkl":
-        print("wyjście to pickle")
+        PickleFile(file_old, file_new).save_file()      # TODO: możliwe, że nie wczytuje danych z wczytanego i zmodyfikowanego pliku
 
 
 
-# # OpenChangeSaveFile(file_old).check_file_ext_old()
 # CSVFile(file_old, file_new).check_file_ext_old()    +
 # CSVFile(file_old, file_new).check_file_ext_new()    +
 #
@@ -44,6 +43,6 @@ else:
 
 # PickleFile(file_old, file_new).save_file()        -
 
-
 # JSONFile(file_old, file_new).open_file()
+# JSONFile(file_old, file_new).switch_list()
 

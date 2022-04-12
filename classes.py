@@ -12,7 +12,7 @@ class OpenChangeSaveFile:
         self.lista = []
 
     def check_file_ext_old(self):
-        ext_old = os.path.splitext(self.file_path_old)[-1]      # TODO: 4) jak skierować do odpowiedniej klasy po spr.rozszerzenia?
+        ext_old = os.path.splitext(self.file_path_old)[-1]
         print("Old extension: ", ext_old)
         return ext_old
 
@@ -21,9 +21,9 @@ class OpenChangeSaveFile:
         print("New extension: ", ext_new)
         return ext_new
 
-    # def open_file(self):
-    #     pass
-    #     # print("To co jest wczytywane: ", self.lista)
+    def open_file(self):
+        pass
+        # print("To co jest wczytywane: ", self.lista)
 
     def switch_list(self):    # modyfikacja elementu listy na podstawie danych z std
         self.open_file()
@@ -49,6 +49,8 @@ class CSVFile(OpenChangeSaveFile):
                 self.lista.append(linia)
         # super().open_file()
         # print(self.lista)
+        # lista = self.lista
+        # return lista
         return self.lista
 
     def save_file(self):
@@ -62,11 +64,17 @@ class CSVFile(OpenChangeSaveFile):
 
 
 class JSONFile(OpenChangeSaveFile):
-    def open_file(self):                # TODO : 2) jak zmienić plik json na listę list, gdy nie znamy zawartości danego pliku?
-        # lista = []
-        with open(self.file_path_old, "r") as f:
-            reader = json.load(f)
-            print(reader)
+    pass
+#     def open_file(self):                # TODO : 2) jak zmienić plik json na listę list, gdy nie znamy zawartości danego pliku?
+#         # lista = []
+#         with open(self.file_path_old, "r") as f:
+#             reader = json.load(f)
+#             print(reader)
+#             for idx in sys.argv[3:]:
+#                 y, x, wartosc = idx.split(",")
+#                 reader[int(y)][int(x)] = wartosc
+#             print(reader)
+            # return reader
             # for k, v in reader.items():
             #     self.lista.append([k, v])
             # print(reader)
@@ -76,8 +84,18 @@ class JSONFile(OpenChangeSaveFile):
             # print(el2)
         # print(self.lista)
 
-    def switch_list(self):    # modyfikacja elementu słownika na podstawie danych z std
-        self.open_file()
+    # def switch_list(self):    # modyfikacja elementu słownika na podstawie danych z std
+    #     self.open_file()
+    #     for idx in sys.argv[3:]:
+    #         y, x, wartosc = idx.split(",")
+    #         reader[int(y)][int(x)] = wartosc
+    #     # self.reader[]
+    #     print(reader)
+
+    def save_file(self):
+        self.switch_list()
+        with open(sys.argv[2], "w") as f:
+            json.dump(self.lista, f)
 
 
 class PickleFile(OpenChangeSaveFile):
@@ -87,10 +105,5 @@ class PickleFile(OpenChangeSaveFile):
     #             print(reader)
 
     def save_file(self):
-        self.switch_list()
-        # print(self.lista)
-        with open(self.file_path_new, "wb") as f:
+        with open(sys.argv[2], "wb") as f:
             pickle.dump(self.lista, f)
-            # writer = csv.writer(f)
-            # for linia in self.lista:
-            #     writer.writerow(linia)
