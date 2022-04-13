@@ -11,12 +11,12 @@ class OpenChangeSaveFile:
         self.file_path_new = file_path_new
         self.lista = []
 
-    def check_file_ext_old(self):
+    def check_file_ext_old(self):                       # TODO: sprawdzić czy to jest potrzebne w klasie
         ext_old = os.path.splitext(self.file_path_old)[-1]
         print("Old extension: ", ext_old)
         return ext_old
 
-    def check_file_ext_new(self):
+    def check_file_ext_new(self):                       # TODO: sprawdzić czy to jest potrzebne w klasie
         ext_new = os.path.splitext(self.file_path_new)[-1]
         print("New extension: ", ext_new)
         return ext_new
@@ -45,21 +45,19 @@ class CSVFile(OpenChangeSaveFile):
     def open_file(self):
         with open(self.file_path_old, "r") as f:
             reader = csv.reader(f)
-            for linia in reader:
-                self.lista.append(linia)
+            for line in reader:
+                self.lista.append(line)
         # super().open_file()
         # print(self.lista)
         # lista = self.lista
         # return lista
         return self.lista
 
-    def save_file(self):
-        self.switch_list()
-        # print(self.lista)
+    def save_file(self, implement_list):
         with open(self.file_path_new, "w", newline="") as f:
             writer = csv.writer(f)
-            for linia in self.lista:
-                writer.writerow(linia)
+            for line in implement_list:
+                writer.writerow(line)
             # writer.writerows(self.lista)
 
 
@@ -92,18 +90,26 @@ class JSONFile(OpenChangeSaveFile):
     #     # self.reader[]
     #     print(reader)
 
-    def save_file(self):
-        self.switch_list()
+    def save_file(self, implement_list):
+        # self.switch_list()
         with open(sys.argv[2], "w") as f:
-            json.dump(self.lista, f)
+            json.dump(implement_list, f)
 
 
 class PickleFile(OpenChangeSaveFile):
-    #     def open_file(self):                # TODO: sprawdzić działanie, gdy będę mieć plik typu pickle
-    #         with open(self.file_path_old, "rb") as f:
-    #             reader = pickle.load(f)
-    #             print(reader)
+    def open_file(self):                # TODO: sprawdzić działanie, gdy będę mieć plik typu pickle
+        with open(self.file_path_old, "rb") as f:
+            self.lista = pickle.load(f)
+        return self.lista
 
-    def save_file(self):
+    def save_file(self, implement_list):
         with open(sys.argv[2], "wb") as f:
-            pickle.dump(self.lista, f)
+            pickle.dump(implement_list, f)
+
+
+# wprowadzanie zmian w liście
+def switch_list(lista):
+    for idx in sys.argv[3:]:
+        y, x, wartosc = idx.split(",")
+        lista[int(y)][int(x)] = wartosc
+    return lista

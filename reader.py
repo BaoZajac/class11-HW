@@ -1,6 +1,6 @@
 import os
 import sys
-from classes import CSVFile, JSONFile, PickleFile
+from classes import CSVFile, JSONFile, PickleFile, switch_list
 
 
 file_old = sys.argv[1]
@@ -18,31 +18,19 @@ if ext_old not in available_ext or ext_new not in available_ext:
     print("Nieobsługiwany format pliku")
 else:
     if ext_old == ".csv":
-        CSVFile(file_old, file_new).print_data()        # +
+        lista = CSVFile(file_old, file_new).open_file()       # +
     elif ext_old == ".json":
         ...
     elif ext_old == ".pkl":
-        ...
+        lista = PickleFile(file_old, file_new).open_file()
+
+    lista = switch_list(lista)
+    print(lista)
+
     if ext_new == ".csv":
-        CSVFile(file_old, file_new).save_file()         # +
+        CSVFile(file_old, file_new).save_file(lista)         # +
     elif ext_new == ".json":
-        JSONFile(file_old, file_new).save_file()        # TODO: nie wczytuje danych z wczytanego i zmodyfikowanego pliku
+        JSONFile(file_old, file_new).save_file(lista)        # TODO: nie wczytuje danych z wczytanego i zmodyfikowanego pliku
     elif ext_new == ".pkl":
-        PickleFile(file_old, file_new).save_file()      # TODO: możliwe, że nie wczytuje danych z wczytanego i zmodyfikowanego pliku
-
-
-
-# CSVFile(file_old, file_new).check_file_ext_old()    +
-# CSVFile(file_old, file_new).check_file_ext_new()    +
-#
-# # CSVFile(file_old, file_new).open_file()
-# # CSVFile(file_old, file_new).switch_list()
-#
-# CSVFile(file_old, file_new).print_data()        +
-# CSVFile(file_old, file_new).save_file()         +
-
-# PickleFile(file_old, file_new).save_file()        -
-
-# JSONFile(file_old, file_new).open_file()
-# JSONFile(file_old, file_new).switch_list()
+        PickleFile(file_old, file_new).save_file(lista)      # TODO: możliwe, że nie wczytuje danych z wczytanego i zmodyfikowanego pliku
 
