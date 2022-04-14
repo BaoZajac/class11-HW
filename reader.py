@@ -21,7 +21,8 @@ else:
         lista = CSVFile(file_old, file_new).open_file()
     elif ext_old == ".json":
         lista = JSONFile(file_old, file_new).open_file()
-    elif ext_old == ".pkl":
+    # elif ext_old == ".pkl":
+    else:
         lista = PickleFile(file_old, file_new).open_file()
 
     lista = switch_list(lista)

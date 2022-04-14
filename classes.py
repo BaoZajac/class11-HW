@@ -11,35 +11,6 @@ class OpenChangeSaveFile:
         self.file_path_new = file_path_new
         self.lista = []
 
-    def check_file_ext_old(self):                       # TODO: sprawdzić czy to jest potrzebne w klasie
-        ext_old = os.path.splitext(self.file_path_old)[-1]
-        print("Old extension: ", ext_old)
-        return ext_old
-
-    def check_file_ext_new(self):                       # TODO: sprawdzić czy to jest potrzebne w klasie
-        ext_new = os.path.splitext(self.file_path_new)[-1]
-        print("New extension: ", ext_new)
-        return ext_new
-
-    def open_file(self):
-        pass
-        # print("To co jest wczytywane: ", self.lista)
-
-    def switch_list(self):    # modyfikacja elementu listy na podstawie danych z std
-        self.open_file()
-        for idx in sys.argv[3:]:
-            y, x, wartosc = idx.split(",")
-            self.lista[int(y)][int(x)] = wartosc
-        # print(self.lista)
-        return self.lista
-
-    def print_data(self):       # TODO: 3) czy ma wydrukować po prostu listę?
-        self.switch_list()
-        print(self.lista)
-
-    # def save_file(self):
-    #     self.switch_list()
-
 
 class CSVFile(OpenChangeSaveFile):
     def open_file(self):
@@ -66,7 +37,6 @@ class JSONFile(OpenChangeSaveFile):
             return self.lista
 
     def save_file(self, implement_list):
-        # self.switch_list()
         with open(sys.argv[2], "w") as f:
             json.dump(implement_list, f)
 
