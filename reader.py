@@ -18,9 +18,9 @@ if ext_old not in available_ext or ext_new not in available_ext:
     print("Nieobsługiwany format pliku")
 else:
     if ext_old == ".csv":
-        lista = CSVFile(file_old, file_new).open_file()       # +
+        lista = CSVFile(file_old, file_new).open_file()
     elif ext_old == ".json":
-        ...
+        lista = JSONFile(file_old, file_new).open_file()
     elif ext_old == ".pkl":
         lista = PickleFile(file_old, file_new).open_file()
 
@@ -28,9 +28,9 @@ else:
     print(lista)
 
     if ext_new == ".csv":
-        CSVFile(file_old, file_new).save_file(lista)         # +
+        CSVFile(file_old, file_new).save_file(lista)
     elif ext_new == ".json":
-        JSONFile(file_old, file_new).save_file(lista)        # TODO: nie wczytuje danych z wczytanego i zmodyfikowanego pliku
+        JSONFile(file_old, file_new).save_file(lista)
     elif ext_new == ".pkl":
-        PickleFile(file_old, file_new).save_file(lista)      # TODO: możliwe, że nie wczytuje danych z wczytanego i zmodyfikowanego pliku
+        PickleFile(file_old, file_new).save_file(lista)
 

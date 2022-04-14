@@ -43,15 +43,12 @@ class OpenChangeSaveFile:
 
 class CSVFile(OpenChangeSaveFile):
     def open_file(self):
-        with open(self.file_path_old, "r") as f:
-            reader = csv.reader(f)
-            for line in reader:
-                self.lista.append(line)
-        # super().open_file()
-        # print(self.lista)
-        # lista = self.lista
-        # return lista
-        return self.lista
+        if os.path.exists(self.file_path_old):
+            with open(self.file_path_old, "r") as f:
+                reader = csv.reader(f)
+                for line in reader:
+                    self.lista.append(line)
+            return self.lista
 
     def save_file(self, implement_list):
         with open(self.file_path_new, "w", newline="") as f:
@@ -62,33 +59,11 @@ class CSVFile(OpenChangeSaveFile):
 
 
 class JSONFile(OpenChangeSaveFile):
-    pass
-#     def open_file(self):                # TODO : 2) jak zmienić plik json na listę list, gdy nie znamy zawartości danego pliku?
-#         # lista = []
-#         with open(self.file_path_old, "r") as f:
-#             reader = json.load(f)
-#             print(reader)
-#             for idx in sys.argv[3:]:
-#                 y, x, wartosc = idx.split(",")
-#                 reader[int(y)][int(x)] = wartosc
-#             print(reader)
-            # return reader
-            # for k, v in reader.items():
-            #     self.lista.append([k, v])
-            # print(reader)
-            # for k in reader:
-            #     # self.lista.append(linia)
-            #     print(k)
-            # print(el2)
-        # print(self.lista)
-
-    # def switch_list(self):    # modyfikacja elementu słownika na podstawie danych z std
-    #     self.open_file()
-    #     for idx in sys.argv[3:]:
-    #         y, x, wartosc = idx.split(",")
-    #         reader[int(y)][int(x)] = wartosc
-    #     # self.reader[]
-    #     print(reader)
+    def open_file(self):
+        if os.path.exists(self.file_path_old):
+            with open(self.file_path_old, "r") as f:
+                self.lista = json.load(f)
+            return self.lista
 
     def save_file(self, implement_list):
         # self.switch_list()
@@ -97,10 +72,11 @@ class JSONFile(OpenChangeSaveFile):
 
 
 class PickleFile(OpenChangeSaveFile):
-    def open_file(self):                # TODO: sprawdzić działanie, gdy będę mieć plik typu pickle
-        with open(self.file_path_old, "rb") as f:
-            self.lista = pickle.load(f)
-        return self.lista
+    def open_file(self):
+        if os.path.exists(self.file_path_old):
+            with open(self.file_path_old, "rb") as f:
+                self.lista = pickle.load(f)
+            return self.lista
 
     def save_file(self, implement_list):
         with open(sys.argv[2], "wb") as f:
@@ -109,7 +85,8 @@ class PickleFile(OpenChangeSaveFile):
 
 # wprowadzanie zmian w liście
 def switch_list(lista):
-    for idx in sys.argv[3:]:
-        y, x, wartosc = idx.split(",")
-        lista[int(y)][int(x)] = wartosc
+    if lista:
+        for idx in sys.argv[3:]:
+            y, x, wartosc = idx.split(",")
+            lista[int(y)][int(x)] = wartosc
     return lista
